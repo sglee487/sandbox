@@ -29,16 +29,23 @@ def extract_feature(file_name):
 
 def parse_audio_files(parent_dir,sub_dirs,file_ext="*.wav"):
     features, labels = np.empty((0,193)), np.empty(0)
+    # print("\nfound wav in\n")
     for label, sub_dir in enumerate(sub_dirs):
         for fn in glob.glob(os.path.join(parent_dir, sub_dir, file_ext)):
+            # print("\nfound wav ?\n" + fn)
+            print(fn)
             try:
+              # print("\nfound wav found\n")
               mfccs, chroma, mel, contrast,tonnetz = extract_feature(fn)
+              # print("\nfound wav not found\n")
             except Exception as e:
-              print ("Error encountered while parsing file: ", fn)
+              # print ("Error encountered while parsing file: ", fn)
               continue
             ext_features = np.hstack([mfccs,chroma,mel,contrast,tonnetz])
             features = np.vstack([features,ext_features])
+            # example of file name : 108041-9-0-4
             labels = np.append(labels, fn.split('/')[2].split('-')[1])
+            # labels = np.append(labels, fn.split('/')[2].split('_')[1])
     return np.array(features), np.array(labels, dtype = np.int)
 
 def one_hot_encode(labels):
@@ -49,6 +56,7 @@ def one_hot_encode(labels):
     return one_hot_encode
 
 parent_dir = 'Sound-Data'
+# parent_dir = ''
 tr_sub_dirs = ["fold1","fold2"]
 ts_sub_dirs = ["fold3"]
 tr_features, tr_labels = parse_audio_files(parent_dir,tr_sub_dirs)
@@ -69,10 +77,10 @@ sd = 1 / np.sqrt(n_dim)
 learning_rate = 0.01
 
 # ---------------------
-X = tf.placeholder(tf.float32,[None,n_dim])
-Y = tf.placeholder(tf.float32,[None,n_classes])
-# X = tf.placeholder(tf.float32,[1,n_dim])
-# Y = tf.placeholder(tf.float32,[1,n_classes])
+# X = tf.placeholder(tf.float32,[None,n_dim])
+# Y = tf.placeholder(tf.float32,[None,n_classes])
+X = tf.placeholder(tf.float32,(None,n_dim))
+Y = tf.placeholder(tf.float32,(None,n_classes))
 
 W_1 = tf.Variable(tf.random_normal([n_dim,n_hidden_units_one], mean = 0, stddev=sd))
 b_1 = tf.Variable(tf.random_normal([n_hidden_units_one], mean = 0, stddev=sd))
