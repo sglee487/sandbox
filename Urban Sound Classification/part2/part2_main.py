@@ -25,7 +25,8 @@ def extract_features(parent_dir, sub_dirs, file_ext="*.wav", bands=60, frames=41
     for l, sub_dir in enumerate(sub_dirs):
         for fn in glob.glob(os.path.join(parent_dir, sub_dir, file_ext)):
             sound_clip, s = librosa.load(fn)
-            label = fn.split('/')[2].split('-')[1]
+            # label = fn.split('/')[2].split('-')[1]
+            label = fn.split('/')[2].split('_')[1]
             for (start, end) in windows(sound_clip, window_size):
                 if (len(sound_clip[start:end]) == window_size):
                     signal = sound_clip[start:end]
