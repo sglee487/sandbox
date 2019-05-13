@@ -1,4 +1,7 @@
+# http://aqibsaeed.github.io/2016-09-03-urban-sound-classification-part-1/
 # http://aqibsaeed.github.io/2016-09-24-urban-sound-classification-part-2/
+# https://blog.naver.com/PostView.nhn?blogId=phj8498&logNo=221271057078
+# https://blog.naver.com/PostView.nhn?blogId=phj8498&logNo=221271058287
 
 import glob
 import os
