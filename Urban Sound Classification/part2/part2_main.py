@@ -104,7 +104,8 @@ bands = 60
 
 feature_size = 2460 #60x41
 # num_labels = 10
-num_labels = 2
+# num_labels = 2
+num_labels = 4
 num_channels = 2
 
 batch_size = 50
@@ -173,7 +174,8 @@ with tf.Session() as session:
         # 이므로 Y 텐서 차원을 (18,2) 로 바꾸면 되지 않을까? 한번 해 보자.
         cost_history = np.append(cost_history, c)
 
-    print('Test accuracy: ', round(session.run(accuracy, feed_dict={X: ts_features, Y: ts_labels}), 3))
+    # print('Test accuracy: ', round(session.run(accuracy, feed_dict={X: ts_features, Y: ts_labels}), 3))
+    # print('Test accuracy: ', round(session.run(accuracy, feed_dict={X: ts_features, Y: ts_labels})))
     fig = plt.figure(figsize=(15, 10))
     plt.plot(cost_history)
     plt.axis([0, total_iterations, 0, np.max(cost_history)])
@@ -181,3 +183,7 @@ with tf.Session() as session:
 
 
 # =====================================
+
+# 코드보니까 tr가 입력해서 계산하는 거고, ts와 얼마나 맞는지 맞히는거 인듯..
+# 그럼 일단 여자들 yes를 폴더1에 0,1, 폴더 2에 2,3, 폴더 3에 4를 넣어
+# 0,1 ,2,3 을 학습, 4와 비교하도록 해보자..
