@@ -19,12 +19,12 @@ from matplotlib.pyplot import specgram
 def extract_feature(file_name):
     X, sample_rate = librosa.load(file_name)
     stft = np.abs(librosa.stft(X))
-    mfccs = np.mean(librosa.feature.mfcc(y=X, sr=sample_rate, n_mfcc=40).T,axis=0)
-    chroma = np.mean(librosa.feature.chroma_stft(S=stft, sr=sample_rate).T,axis=0)
-    mel = np.mean(librosa.feature.melspectrogram(X, sr=sample_rate).T,axis=0)
-    contrast = np.mean(librosa.feature.spectral_contrast(S=stft, sr=sample_rate).T,axis=0)
+    mfccs = np.mean(librosa.feature.mfcc(y=X, sr=sample_rate, n_mfcc=40).T,axis=0) # https://librosa.github.io/librosa/generated/librosa.feature.mfcc.html
+    chroma = np.mean(librosa.feature.chroma_stft(S=stft, sr=sample_rate).T,axis=0) # https://librosa.github.io/librosa/generated/librosa.feature.chroma_stft.html
+    mel = np.mean(librosa.feature.melspectrogram(X, sr=sample_rate).T,axis=0) # https://librosa.github.io/librosa/generated/librosa.feature.melspectrogram.html
+    contrast = np.mean(librosa.feature.spectral_contrast(S=stft, sr=sample_rate).T,axis=0) # https://librosa.github.io/librosa/generated/librosa.feature.spectral_contrast.html
     tonnetz = np.mean(librosa.feature.tonnetz(y=librosa.effects.harmonic(X),
-    sr=sample_rate).T,axis=0)
+    sr=sample_rate).T,axis=0) # https://librosa.github.io/librosa/generated/librosa.feature.tonnetz.html
     return mfccs,chroma,mel,contrast,tonnetz
 
 def parse_audio_files(parent_dir,sub_dirs,file_ext="*.wav"):
